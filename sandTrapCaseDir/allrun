@@ -1,0 +1,65 @@
+
+echo 'Current Spline:'
+
+cp ../spline.txt .
+
+gnuplot -persist <<EOF
+set terminal dumb 200 15
+plot 'spline.txt' with linespoints
+EOF
+
+(
+  source /home/bm424/Applications/SALOME-9.12.0-native-UB22.04-SRC/env_launch.sh
+  which python3
+  python3 -c "import sys; print(sys.version)"
+)
+
+echo 'Generating geometry and surface mesh...'
+
+(
+
+    env -i HOME=$HOME PATH=/usr/bin:/bin \
+    /home/bm424/Applications/SALOME-9.12.0-native-UB22.04-SRC/salome -t sandTrapCreator.py > log.geomCreation
+)
+
+cat surfaceMeshSTLs/*.stl > fullGeo.stl
+
+surfaceFeatureEdges fullGeo.stl fullGeo.fms -angle 10 > log.SFE
+
+echo 'Meshing Geometry...'
+
+cartesianMesh > log.cartesianMesh
+
+echo 'Improving mesh quality...'
+
+improveMeshQuality > log.improveMeshQuality1
+improveMeshQuality > log.improveMeshQuality2
+
+renumberMesh -overwrite > log.renumberMesh
+
+cp system/controlDictSimple system/controlDict
+cp system/fvSchemesSimple system/fvSchemes
+
+echo 'Decomposing domain...'
+
+decomposePar > log.decomposePar
+
+echo 'Running simpleFOAM initialisation...'
+
+mpirun -np 10 simpleFoam -parallel > log.simpleFoam
+
+
+cp system/controlDictKPF system/controlDict
+cp system/fvSchemesKPF system/fvSchemes
+
+echo 'Running particle tracking...'
+
+mpirun -np 10 kinematicParcelFoam -parallel > log.KPF
+
+
+
+#reconstructPar -fields '(U p)' -lagrangianFields '(U d)'
+
+#foamToVTK -no-boundary
+
+

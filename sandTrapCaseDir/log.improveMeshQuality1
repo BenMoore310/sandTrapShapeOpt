@@ -1,0 +1,69 @@
+/*---------------------------------------------------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2312                                  |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+Build  : _e651d635-20240208 OPENFOAM=2312 patch=240220 version=2312
+Arch   : "LSB;label=32;scalar=64"
+Exec   : improveMeshQuality
+Date   : Sep 10 2025
+Time   : 11:21:50
+Host   : work
+PID    : 188961
+I/O    : uncollated
+Case   : /home/bm424/Projects/sandTrapShapeOpt/sandTrapCaseDir
+nProcs : 1
+trapFpe: Floating point exception trapping enabled (FOAM_SIGFPE).
+fileModificationChecking : Monitoring run-time modified files using timeStampMaster (fileModificationSkew 5, maxFileModificationPolls 20)
+allowSystemOperations : Allowing user-supplied system call operations
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+Create time
+
+Default number of loops is 10
+Default number of iterations is 50
+Default number of surface iterations is 2
+Using default quality threshold 0.1
+No constraints applied on the smoothing procedure
+Resizing points!
+Starting creating cells
+Found 21580 boundary faces 
+Found 4 corners at the surface of the volume mesh
+Found 684 edge points at the surface of the volume mesh
+Starting smoothing the mesh
+Starting untangling the mesh
+Iteration 0. Number of bad faces is 0
+Finished untangling the mesh
+Finished smoothing the mesh
+Worst non - orthogonality 56.675 selecting faces with non - orthogonality greater than 53.5267
+Maximum skewness in the mesh is 1.17577 selecting faces with skewness greater than 1.05819
+Selected 10 out of 286598 faces
+Iteration 0. Number of worst quality faces is 10
+Worst non - orthogonality 53.6646 selecting faces with non - orthogonality greater than 50.709
+Maximum skewness in the mesh is 1.03474 selecting faces with skewness greater than 0.93127
+Selected 20 out of 286598 faces
+Iteration 1. Number of worst quality faces is 20
+Worst non - orthogonality 53.4911 selecting faces with non - orthogonality greater than 50.5464
+Maximum skewness in the mesh is 1.03636 selecting faces with skewness greater than 0.932725
+Selected 20 out of 286598 faces
+Iteration 2. Number of worst quality faces is 20
+Worst non - orthogonality 53.5467 selecting faces with non - orthogonality greater than 50.5985
+Maximum skewness in the mesh is 1.03677 selecting faces with skewness greater than 0.933093
+Selected 10 out of 286598 faces
+Iteration 3. Number of worst quality faces is 10
+Worst non - orthogonality 53.5548 selecting faces with non - orthogonality greater than 50.6061
+Maximum skewness in the mesh is 1.03685 selecting faces with skewness greater than 0.933169
+Selected 10 out of 286598 faces
+Iteration 4. Number of worst quality faces is 10
+Worst non - orthogonality 53.5563 selecting faces with non - orthogonality greater than 50.6075
+Maximum skewness in the mesh is 1.03687 selecting faces with skewness greater than 0.933183
+Selected 10 out of 286598 faces
+Iteration 5. Number of worst quality faces is 10
+Starting untangling the mesh
+Iteration 0. Number of bad faces is 0
+Finished untangling the mesh
+Writing mesh
+End
+

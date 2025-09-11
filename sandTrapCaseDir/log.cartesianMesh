@@ -1,0 +1,211 @@
+/*---------------------------------------------------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2312                                  |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+Build  : _e651d635-20240208 OPENFOAM=2312 patch=240220 version=2312
+Arch   : "LSB;label=32;scalar=64"
+Exec   : cartesianMesh
+Date   : Sep 10 2025
+Time   : 11:21:43
+Host   : work
+PID    : 187895
+I/O    : uncollated
+Case   : /home/bm424/Projects/sandTrapShapeOpt/sandTrapCaseDir
+nProcs : 1
+trapFpe: Floating point exception trapping enabled (FOAM_SIGFPE).
+fileModificationChecking : Monitoring run-time modified files using timeStampMaster (fileModificationSkew 5, maxFileModificationPolls 20)
+allowSystemOperations : Allowing user-supplied system call operations
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+Create time
+
+Created 7 surface patches
+Setting root cube size and refinement parameters
+Root box (-8.73 -19.98 -19.9882) (32.23 20.98 20.9718)
+Requested cell size corresponds to octree level 9
+Requested boundary cell size corresponds to octree level 9
+Refining boundary
+Refining boundary boxes to the given size
+Finished refining boundary boxes
+Performing automatic refinement
+Performing automatic refinement
+Marking inside/outside.
+Number of internal boxes is 10626
+Number of outside boxes is 27590
+Number of data boxes is 15762
+Number of unknown boxes is 0
+Refining boxes near DATA boxes
+Marking inside/outside.
+Number of internal boxes is 45626
+Number of outside boxes is 27590
+Number of data boxes is 15762
+Number of unknown boxes is 0
+Finished refining boxes near DATA boxes
+Extracting polyMesh
+Creating octree vertices
+Octree nodes 67947
+Resizing points!
+Finished creating octree vertices
+Creating polyMesh from octree
+Reordering boundary faces 
+Finished reordering boundary faces
+Finished creating polyMesh
+Mesh has :
+52399 vertices 
+141412 faces
+44672 cells
+Finished extracting polyMesh
+Checking for irregular surface connections
+Checking cells connected to surface vertices
+Found 14792 boundary faces 
+Found 0 problematic vertices
+Finished checking cells connected to surface vertices
+Checking for non - manifold surface edges
+Found 0 non - manifold edges
+Finished checking for non - manifold surface edges
+Checking faces connections to surface vertices
+Found 0 invalid connections
+Finished checking faces connections to surface vertices
+Finished checking for irregular surface connections
+Found 14792 boundary faces 
+Found 0 non - mappable cells
+Checking cell connections
+Finished checking cell connections
+Found 14792 boundary faces 
+Marked 0 faces for decomposition
+Found 14792 boundary faces 
+Smoothing mesh surface before mapping.
+Found 0 corners at the surface of the volume mesh
+Found 0 edge points at the surface of the volume mesh
+Starting untangling the surface of the volume mesh
+Number of inverted boundary faces is 0
+Finished untangling the surface of the volume mesh
+Found 0 corners at the surface of the volume mesh
+Found 0 edge points at the surface of the volume mesh
+Starting untangling the surface of the volume mesh
+Number of inverted boundary faces is 0
+Finished untangling the surface of the volume mesh
+Found 0 corners at the surface of the volume mesh
+Found 0 edge points at the surface of the volume mesh
+Starting untangling the surface of the volume mesh
+Number of inverted boundary faces is 0
+Finished untangling the surface of the volume mesh
+Finished smoothing mesh surface before mapping.
+Mapping vertices onto surface
+Finished mapping vertices onto surface
+Found 0 corners at the surface of the volume mesh
+Found 0 edge points at the surface of the volume mesh
+Starting untangling the surface of the volume mesh
+Number of inverted boundary faces is 0
+Finished untangling the surface of the volume mesh
+Found 14792 boundary faces 
+Extracting edges
+Starting topological adjustment of patches
+No topological adjustment was needed
+Starting geometrical adjustment of patches
+Found 10 corners at the surface of the volume mesh
+Found 1309 edge points at the surface of the volume mesh
+15 edge groups found!
+No geometrical adjustment was needed
+Found 14792 boundary faces 
+Found 10 corners at the surface of the volume mesh
+Found 1309 edge points at the surface of the volume mesh
+Decomposing 2 internal faces
+Performing patch correction
+Found 14792 boundary faces 
+Found 10 corners at the surface of the volume mesh
+Found 1309 edge points at the surface of the volume mesh
+Finished with patch correction
+Found 14892 boundary faces 
+Removing selected cells from the mesh
+New cells size 44570
+Reordering boundary faces 
+Finished reordering boundary faces
+Removing faces
+Finished removing faces
+Finished removing selected cells from the mesh
+Adding new cells 
+Adding 724 cells to the mesh
+Finished adding cells to the mesh
+Reordering bnd faces
+Reordering boundary faces 
+Finished reordering boundary faces
+Finding bnd faces
+Found 14892 boundary faces 
+Mapping vertices with respect to surface patches
+Found 10 corners at the surface of the volume mesh
+Found 1309 edge points at the surface of the volume mesh
+15 edge groups found!
+Finished mapping vertices with respect to surface patches
+Found 14892 boundary faces 
+Found 10 corners at the surface of the volume mesh
+Found 1309 edge points at the surface of the volume mesh
+Optimizing edges. Iteration:.....
+Optimizing surface vertices. Iteration:.....
+Starting untangling the surface of the volume mesh
+Number of inverted boundary faces is 0
+Finished untangling the surface of the volume mesh
+Found 14892 boundary faces 
+Found 10 corners at the surface of the volume mesh
+Found 1309 edge points at the surface of the volume mesh
+Found 10 corners at the surface of the volume mesh
+Found 1309 edge points at the surface of the volume mesh
+Starting creating layer cells
+Adding 16220 cells to the mesh
+Finished adding cells to the mesh
+Reordering boundary faces 
+Finished reordering boundary faces
+Finished creating layer cells
+Found 17556 boundary faces 
+Found 10 corners at the surface of the volume mesh
+Found 1335 edge points at the surface of the volume mesh
+Optimizing edges. Iteration:.....
+Optimizing surface vertices. Iteration:.....
+Starting untangling the surface of the volume mesh
+Number of inverted boundary faces is 0
+Finished untangling the surface of the volume mesh
+Found 17556 boundary faces 
+Found 10 corners at the surface of the volume mesh
+Found 1335 edge points at the surface of the volume mesh
+Starting smoothing the mesh
+Starting untangling the mesh
+Iteration 0. Number of bad faces is 0
+Finished untangling the mesh
+Finished smoothing the mesh
+Iteration 0. Number of bad faces is 0
+Starting untangling the mesh
+Iteration 0. Number of bad faces is 0
+Finished untangling the mesh
+Starting refining boundary layers
+Found 17556 boundary faces 
+Found 10 corners at the surface of the volume mesh
+Found 1335 edge points at the surface of the volume mesh
+Detecting layers
+Analysing mesh for bnd layer existence
+Generating hair edges
+Finished with bnd layer detection
+Resizing points!
+Finished refining boundary - layer faces 
+Number of newly generated cells 30672
+Resizing cells!
+Resizing faces!
+Finished generating new cells 
+Finished refining boundary layers
+Found 21580 boundary faces 
+Found 10 corners at the surface of the volume mesh
+Found 1363 edge points at the surface of the volume mesh
+Iteration 0. Number of bad faces is 0
+Starting untangling the mesh
+Iteration 0. Number of bad faces is 0
+Finished untangling the mesh
+Renumbering the mesh
+Finished renumbering the mesh
+Renaming boundary patches
+Finished renaming boundary patches
+ExecutionTime = 65.12 s  ClockTime = 7 s
+
+End
+
