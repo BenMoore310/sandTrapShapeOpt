@@ -1,0 +1,4 @@
+gnuplot -persist <<EOF
+set terminal dumb 200 15
+plot 'spline.txt' with linespoints
+EOF

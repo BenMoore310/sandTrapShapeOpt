@@ -1,3 +1,0 @@
-# Time         currentProc " (coordinates0 coordinates1 coordinates2 coordinates3) (position0 position1 position2) celli tetFacei tetPti facei stepFraction origProc origId active typeId nParticle d dTarget (U0 U1 U2) rho age tTurb (UTurb0 UTurb1 UTurb2) (UCorrect0 UCorrect1 UCorrect2)"
-7.860000e+02	1 (0 0.180215 0.00542668 0.814358) (23.5 0.0710638 1.01357) 144 22791 1 22791 0.11604 5 9963 1 -1 1 8.9e-06 0 (0.316427 -0.00167677 0.0176101) 2650 275.116 0 (0 0 0) (0 0 0)
-7.870000e+02	1 (0 0.115782 0.67061 0.213608) (23.5 0.16873 1.33123) 399 22718 2 22718 0.588515 5 11278 1 -1 1 4.3e-06 0 (0.416827 0.00113311 0.0107448) 2650 274.589 0 (0 0 0) (0 0 0)
