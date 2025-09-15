@@ -8,10 +8,10 @@
 Build  : _e651d635-20240208 OPENFOAM=2312 patch=240220 version=2312
 Arch   : "LSB;label=32;scalar=64"
 Exec   : renumberMesh -overwrite
-Date   : Sep 10 2025
-Time   : 11:22:06
+Date   : Sep 15 2025
+Time   : 12:56:53
 Host   : work
-PID    : 189161
+PID    : 395711
 I/O    : uncollated
 Case   : /home/bm424/Projects/sandTrapShapeOpt/sandTrapCaseDir
 nProcs : 1
@@ -24,10 +24,10 @@ Create time
 
 Create mesh for time = 0
 
-Mesh region0 size: 92186
+Mesh region0 size: 95330
 Before renumbering :
-    band           : 91941
-    profile        : 6.95056e+08
+    band           : 94863
+    profile        : 6.01173e+08
 
 Using default renumberMethod.
 
@@ -37,8 +37,8 @@ Reading volScalarField: k nut omega p
 Reading volVectorField: U
 
 After renumbering :
-    band           : 503
-    profile        : 3.38211e+07
+    band           : 697
+    profile        : 4.16684e+07
 
 Writing mesh to "constant"
 End

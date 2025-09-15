@@ -76,24 +76,65 @@ def simulateDesign(objective, sample, numBasis):
 
     subprocess.run(["bash", "allrun"], cwd=cwdPath + "/sandTrapCaseDir", check=True)
 
+    print("Checking simulation stability...")
+
     subprocess.run(
-        ["python3.11", "calculateDesignEfficiency.py"], cwd=cwdPath + "/sandTrapCaseDir", check=True
-    )
+        ["python3.11", "checkError.py"], cwd=cwdPath + "/sandTrapCaseDir", check=True
+    )    
 
-    efficiencies = np.loadtxt(cwdPath + "/sandTrapCaseDir/efficiency.txt")
+    maxCo = np.loadtxt(cwdPath + "/sandTrapCaseDir/maxCo.txt")
 
-    numberEfficiency = efficiencies[0]
-    massEfficiency = efficiencies[1]
-    print('efficiency = ', numberEfficiency)
+    # assume simulation is stable if maxCo less than 1000, and proceed with the rest of the particle tracking
+    if maxCo < 1e3:
 
-    subprocess.run(["rm", "-r", "0"], cwd=cwdPath + "/sandTrapCaseDir", check=True)
+        print('Solution stable. Proceeding...')
 
-    # subprocess.run(["rm", "-r", "processor*"], cwd=cwdPath + "/runDirectory", check=True)
-    subprocess.run(["bash", "allclean"], cwd=cwdPath + "/sandTrapCaseDir", check=True)
+        result = subprocess.run(["bash", "allrun2"], cwd=cwdPath + "/sandTrapCaseDir", check=False)
 
-    # numberEfficiency = np.random.randint(0,10)
+        if result.returncode == 42:
+            numberEfficiency = 20
 
-    return numberEfficiency
+            # subprocess.run(["rm", "-r", "0"], cwd=cwdPath + "/sandTrapCaseDir", check=True)
+
+            # subprocess.run(["rm", "-r", "processor*"], cwd=cwdPath + "/runDirectory", check=True)
+            subprocess.run(["bash", "allclean"], cwd=cwdPath + "/sandTrapCaseDir", check=True)
+
+            return numberEfficiency
+
+        elif result.returncode == 0:
+            
+            print('Simulation successful, calculating true efficiency...')
+
+            subprocess.run(
+                ["python3.11", "calculateDesignEfficiency.py"], cwd=cwdPath + "/sandTrapCaseDir", check=True
+            )
+
+            efficiencies = np.loadtxt(cwdPath + "/sandTrapCaseDir/efficiency.txt")
+
+            numberEfficiency = efficiencies[0]
+            massEfficiency = efficiencies[1]
+            print('efficiency = ', numberEfficiency)
+
+            # subprocess.run(["rm", "-r", "0"], cwd=cwdPath + "/sandTrapCaseDir", check=True)
+
+            # subprocess.run(["rm", "-r", "processor*"], cwd=cwdPath + "/runDirectory", check=True)
+            subprocess.run(["bash", "allclean"], cwd=cwdPath + "/sandTrapCaseDir", check=True)
+
+            # numberEfficiency = np.random.randint(0,10)
+
+            return numberEfficiency
+    
+    else:
+        # if maxCo greater than 1000, assume instability and penalise decision vector by returning an arbitrarily low number efficiency
+        print('Solution unstable, penalising decision vector...')
+        numberEfficiency = 20.0
+
+        # subprocess.run(["rm", "-r", "0"], cwd=cwdPath + "/sandTrapCaseDir", check=True)
+
+        # subprocess.run(["rm", "-r", "processor*"], cwd=cwdPath + "/runDirectory", check=True)
+        subprocess.run(["bash", "allclean"], cwd=cwdPath + "/sandTrapCaseDir", check=True)
+
+        return numberEfficiency
 
 
 
@@ -106,8 +147,7 @@ def main(numBasis, numObj, initialSamples, seed):
     featureList = [np.array([]) for _ in range(numObj)]
     targetList = [np.array([]) for _ in range(numObj)]
 
-    featureListFull = [np.empty((1,(numBasis*2))) for _ in range(numObj)]
-    targetListFull = [np.array([]) for _ in range(numObj)]
+
 
     # evaluatedObjectives = np.random.randint(
     #     low=0, high=6, size=(initialSamples), dtype=int
@@ -139,81 +179,84 @@ def main(numBasis, numObj, initialSamples, seed):
     # else:
     #     sampler = qmc.LatinHypercube(d=(numBasis * 3), seed=seed)
 
-    for i in range(numObj):
-        sampler = qmc.LatinHypercube(d=len(bounds), seed=seed+i)
+    # uncomment from here for the initial solutions:
 
-        # remember this is initial samples per objective, not in total
-        # init per obj should be 2*D + 1
+    # for i in range(numObj):
+    #     sampler = qmc.LatinHypercube(d=len(bounds), seed=seed+i)
 
-        samples = sampler.random(n=initialSamples)
+    #     # remember this is initial samples per objective, not in total
+    #     # init per obj should be 2*D + 1
 
-        # Scale samples to bounds
-        featureList[i] = qmc.scale(samples, lowBounds, highBounds)
+    #     samples = sampler.random(n=initialSamples)
 
-    print("initialPopulation", featureList)
+    #     # Scale samples to bounds
+    #     featureList[i] = qmc.scale(samples, lowBounds, highBounds)
 
-
-    for objIdx in range(numObj):
-        initialPopulation = featureList[objIdx]
-        for sample in initialPopulation:
-
-            i = 0
+    # print("initialPopulation", featureList)
 
 
-            print("sample", sample)
-            print(sample.shape)
-            # print(np.reshape(sample, (numBasis,2)))
+    # for objIdx in range(numObj):
+    #     initialPopulation = featureList[objIdx]
+    #     for sample in initialPopulation:
 
-            # call STC and generate spline from current sample
-
-            numberEfficiency = simulateDesign(objIdx, sample, numBasis)
-
-            # targetList[objIdx] = np.append(targetList[objIdx], numberEfficiency)
-
-            targetList[objIdx] = np.append(targetList[objIdx], numberEfficiency)
+    #         i = 0
 
 
-            sample_alt = np.reshape(sample, (int(len(sample)/2), 2))
-            res = np.array(permute(list(sample_alt[:,0])))
-            print(len(res))
-            print(res.shape)
+    #         print("sample", sample)
+    #         print(sample.shape)
+    #         # print(np.reshape(sample, (numBasis,2)))
 
-            sample_final = []
+    #         # call STC and generate spline from current sample
 
-            for j in range(0, len(res)):
-                linkedArray = np.reshape(np.vstack((res[j], sample_alt[:,1])).T, (-1,))
-                sample_final.append(linkedArray)
+    #         numberEfficiency = simulateDesign(objIdx, sample, numBasis)
 
-            sample_final = np.array(sample_final)
+    #         # targetList[objIdx] = np.append(targetList[objIdx], numberEfficiency)
+
+    #         targetList[objIdx] = np.append(targetList[objIdx], numberEfficiency)
+
+    #         print('Target list: ', targetList)
+
+    #         # sample_alt = np.reshape(sample, (int(len(sample)/2), 2))
+    #         # res = np.array(permute(list(sample_alt[:,0])))
+    #         # print(len(res))
+    #         # print(res.shape)
+
+    #         # sample_final = []
+
+    #         # for j in range(0, len(res)):
+    #         #     linkedArray = np.reshape(np.vstack((res[j], sample_alt[:,1])).T, (-1,))
+    #         #     sample_final.append(linkedArray)
+
+    #         # sample_final = np.array(sample_final)
             
-            targets_alt = np.full((len(res),), fill_value=numberEfficiency)
+    #         # targets_alt = np.full((len(res),), fill_value=numberEfficiency)
 
-            featureListFull[objIdx] = np.vstack((featureListFull[objIdx], sample_final))
-            print(featureListFull[objIdx])
-            targetListFull[objIdx] = np.append(targetListFull[objIdx], targets_alt)
-            # print(targetListFull[objIdx])
+    #         # featureListFull[objIdx] = np.vstack((featureListFull[objIdx], sample_final))
+    #         # print(featureListFull[objIdx])
+    #         # targetListFull[objIdx] = np.append(targetListFull[objIdx], targets_alt)
+    #         # print(targetListFull[objIdx])
 
-            i += 1
+    #         i += 1
 
-    # print(np.array(featureListFull).shape)
-    # featureListFull = np.array(featureListFull)
-    for objIdx in range(numObj):
-        print(objIdx)
-        featureListFull[objIdx] = np.delete(featureListFull[objIdx], 0,0)
+    # # # print(np.array(featureListFull).shape)
+    # # # featureListFull = np.array(featureListFull)
+    # # for objIdx in range(numObj):
+    # #     print(objIdx)
+    # #     featureListFull[objIdx] = np.delete(featureListFull[objIdx], 0,0)
 
-    print(featureListFull, np.array(featureListFull).shape)
+    # # print(featureListFull, np.array(featureListFull).shape)
 
-    # print(targetList)
-    # print(featureList)
-    # print(featureListFull)
-    # print(np.array(featureListFull[0]).shape)
-    # print(targetListFull)
+    # # print(targetList)
+    # # # print(featureList)
+    # # # print(featureListFull)
+    # # # print(np.array(featureListFull[0]).shape)
+    # # # print(targetListFull)
 
-    np.savetxt('targetList.txt', targetListFull)
-    arr = np.vstack(featureListFull)   # shape (numObj, length_of_each_array)
+    np.savetxt('targetList.txt', targetList)
+    arr = np.vstack(featureList)   # shape (numObj, length_of_each_array)
     np.savetxt("features.txt", arr)    
 
-    featureList = np.reshape(np.loadtxt('features.txt'), (numObj,(initialSamples*(numBasis)),numBasis*2))
+    featureList = np.reshape(np.loadtxt('features.txt'), (numObj,(initialSamples),numBasis*2))
     targetList = np.loadtxt('targetList.txt')
     HVKG = HVKGHydroshield.HVKG()
     HVKG.optimise(bounds.T, simulateDesign, featureList, targetList.T)

@@ -8,10 +8,10 @@
 Build  : _e651d635-20240208 OPENFOAM=2312 patch=240220 version=2312
 Arch   : "LSB;label=32;scalar=64"
 Exec   : improveMeshQuality
-Date   : Sep 10 2025
-Time   : 11:22:00
+Date   : Sep 15 2025
+Time   : 12:56:42
 Host   : work
-PID    : 189087
+PID    : 395650
 I/O    : uncollated
 Case   : /home/bm424/Projects/sandTrapShapeOpt/sandTrapCaseDir
 nProcs : 1
@@ -29,38 +29,70 @@ Using default quality threshold 0.1
 No constraints applied on the smoothing procedure
 Resizing points!
 Starting creating cells
-Found 21580 boundary faces 
+Found 21104 boundary faces 
 Found 4 corners at the surface of the volume mesh
-Found 684 edge points at the surface of the volume mesh
+Found 672 edge points at the surface of the volume mesh
 Starting smoothing the mesh
 Starting untangling the mesh
-Iteration 0. Number of bad faces is 0
+--> FOAM Warning : 
+    From bool Foam::Module::polyMeshGenChecks::checkFacePyramids(const Foam::Module::polyMeshGen&, bool, Foam::scalar, Foam::labelHashSet*, const boolList*)
+    in file utilities/meshes/polyMeshGenChecks/polyMeshGenChecksGeometry.C at line 2103
+    Error in face pyramids: 60 faces pointing the wrong way!
+--> FOAM Warning : 
+    From bool Foam::Module::polyMeshGenChecks::checkFaceFlatness(const Foam::Module::polyMeshGen&, bool, Foam::scalar, Foam::labelHashSet*, const boolList*)
+    in file utilities/meshes/polyMeshGenChecks/polyMeshGenChecksGeometry.C at line 3004
+    6 faces with severe warpage(flatness < 0.8) found.
+
+--> FOAM Warning : 
+    From bool Foam::Module::polyMeshGenChecks::checkCellPartTetrahedra(const Foam::Module::polyMeshGen&, bool, Foam::scalar, Foam::labelHashSet*, const boolList*)
+    in file utilities/meshes/polyMeshGenChecks/polyMeshGenChecksGeometry.C at line 1582
+    62 zero or negative part tetrahedra detected.
+Iteration 0. Number of bad faces is 62
+--> FOAM Warning : 
+    From bool Foam::Module::polyMeshGenChecks::checkFacePyramids(const Foam::Module::polyMeshGen&, bool, Foam::scalar, Foam::labelHashSet*, const boolList*)
+    in file utilities/meshes/polyMeshGenChecks/polyMeshGenChecksGeometry.C at line 2103
+    Error in face pyramids: 9 faces pointing the wrong way!
+--> FOAM Warning : 
+    From bool Foam::Module::polyMeshGenChecks::checkFaceFlatness(const Foam::Module::polyMeshGen&, bool, Foam::scalar, Foam::labelHashSet*, const boolList*)
+    in file utilities/meshes/polyMeshGenChecks/polyMeshGenChecksGeometry.C at line 3004
+    4 faces with severe warpage(flatness < 0.8) found.
+
+--> FOAM Warning : 
+    From bool Foam::Module::polyMeshGenChecks::checkCellPartTetrahedra(const Foam::Module::polyMeshGen&, bool, Foam::scalar, Foam::labelHashSet*, const boolList*)
+    in file utilities/meshes/polyMeshGenChecks/polyMeshGenChecksGeometry.C at line 1582
+    21 zero or negative part tetrahedra detected.
+Iteration 1. Number of bad faces is 22
+Iteration 2. Number of bad faces is 0
 Finished untangling the mesh
 Finished smoothing the mesh
-Worst non - orthogonality 53.6838 selecting faces with non - orthogonality greater than 50.7269
-Maximum skewness in the mesh is 1.17263 selecting faces with skewness greater than 1.05537
-Selected 10 out of 286598 faces
-Iteration 0. Number of worst quality faces is 10
-Worst non - orthogonality 53.8575 selecting faces with non - orthogonality greater than 50.8896
-Maximum skewness in the mesh is 0.999227 selecting faces with skewness greater than 0.899305
-Selected 10 out of 286598 faces
-Iteration 1. Number of worst quality faces is 10
-Worst non - orthogonality 53.7182 selecting faces with non - orthogonality greater than 50.7591
-Maximum skewness in the mesh is 0.9993 selecting faces with skewness greater than 0.89937
-Selected 10 out of 286598 faces
-Iteration 2. Number of worst quality faces is 10
-Worst non - orthogonality 53.6972 selecting faces with non - orthogonality greater than 50.7395
-Maximum skewness in the mesh is 0.999318 selecting faces with skewness greater than 0.899386
-Selected 10 out of 286598 faces
-Iteration 3. Number of worst quality faces is 10
-Worst non - orthogonality 53.6942 selecting faces with non - orthogonality greater than 50.7367
-Maximum skewness in the mesh is 0.999323 selecting faces with skewness greater than 0.89939
-Selected 10 out of 286598 faces
-Iteration 4. Number of worst quality faces is 10
-Worst non - orthogonality 53.6937 selecting faces with non - orthogonality greater than 50.7362
-Maximum skewness in the mesh is 0.999324 selecting faces with skewness greater than 0.899391
-Selected 10 out of 286598 faces
-Iteration 5. Number of worst quality faces is 10
+Worst non - orthogonality 65.0819 selecting faces with non - orthogonality greater than 61.3675
+Maximum skewness in the mesh is 1.09584 selecting faces with skewness greater than 0.986256
+Selected 55 out of 295632 faces
+Iteration 0. Number of worst quality faces is 55
+Worst non - orthogonality 63.6731 selecting faces with non - orthogonality greater than 60.0567
+Maximum skewness in the mesh is 0.973579 selecting faces with skewness greater than 0.876221
+Selected 18 out of 295632 faces
+Iteration 1. Number of worst quality faces is 18
+Worst non - orthogonality 63.8567 selecting faces with non - orthogonality greater than 60.2276
+Maximum skewness in the mesh is 0.971373 selecting faces with skewness greater than 0.874236
+Selected 20 out of 295632 faces
+Iteration 2. Number of worst quality faces is 20
+Worst non - orthogonality 63.8757 selecting faces with non - orthogonality greater than 60.2452
+Maximum skewness in the mesh is 0.971006 selecting faces with skewness greater than 0.873905
+Selected 22 out of 295632 faces
+Iteration 3. Number of worst quality faces is 22
+Worst non - orthogonality 63.8746 selecting faces with non - orthogonality greater than 60.2443
+Maximum skewness in the mesh is 0.970548 selecting faces with skewness greater than 0.873493
+Selected 22 out of 295632 faces
+Iteration 4. Number of worst quality faces is 22
+Worst non - orthogonality 63.8733 selecting faces with non - orthogonality greater than 60.2431
+Maximum skewness in the mesh is 0.970519 selecting faces with skewness greater than 0.873467
+Selected 22 out of 295632 faces
+Iteration 5. Number of worst quality faces is 22
+Worst non - orthogonality 63.8732 selecting faces with non - orthogonality greater than 60.2429
+Maximum skewness in the mesh is 0.970518 selecting faces with skewness greater than 0.873466
+Selected 22 out of 295632 faces
+Iteration 6. Number of worst quality faces is 22
 Starting untangling the mesh
 Iteration 0. Number of bad faces is 0
 Finished untangling the mesh

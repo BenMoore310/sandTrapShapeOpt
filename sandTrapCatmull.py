@@ -1,6 +1,7 @@
 import numpy as np
 import random
 import argparse
+import matplotlib.pyplot as plt
 
 def catmull(P):
     """
@@ -51,12 +52,13 @@ def decision_vector_2d(catmullPoints, ymin, ymax, xmin, xmax):
 
     # print(vertices.shape)
 
-    xCoords = vertices[:,0]
-    yCoords = vertices[:,1]
-    sortedX = np.sort(xCoords)
+    # xCoords = vertices[:,0]
+    # yCoords = vertices[:,1]
+    # sortedX = np.sort(xCoords)
 
     # print(xCoords)
     # print(sortedX)
+    
 
 
 
@@ -64,7 +66,7 @@ def decision_vector_2d(catmullPoints, ymin, ymax, xmin, xmax):
 
     # sortedVertices = [sortedX[i], yCoords[i]]
 
-    sortedVertices = np.array((sortedX, yCoords)).T
+    # sortedVertices = np.array((sortedX, yCoords)).T
     # print(sortedVertices.shape)
 
     # sorted_indices = np.argsort(vertices[:,0])
@@ -72,7 +74,9 @@ def decision_vector_2d(catmullPoints, ymin, ymax, xmin, xmax):
     # vertices = np.flip(vertices, axis=0)
     # print('sorted', vertices)
 
-    return sortedVertices
+    # I AM NO LONGER RETURNING SORTED VERTICES - LETTING THE OPTIMISER SORT IT OUT FOR ITSELF
+    print('returned vertices:', vertices)
+    return vertices
 
 
 
@@ -97,6 +101,15 @@ def main(catmullPoints, numBasis):
         # print(i)
     np.savetxt('spline.txt', catmull_points)
 
+    plt.figure(figsize=(10,2))
+    plt.plot(catmull_points[:,0], catmull_points[:,1])
+    plt.scatter(vertices[:,0], vertices[:,1])
+    plt.ylim(-1.7,1.1)
+    plt.xlim(3.5, 24)
+    plt.title('Tank Bottom Profile')
+    plt.xlabel('x-coord')
+    plt.ylabel('y-coord')
+    plt.savefig('currentSpline.png')
 
 # if __name__ == "main":
 #     parser = argparse.ArgumentParser(

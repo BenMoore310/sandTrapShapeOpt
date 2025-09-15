@@ -49,10 +49,10 @@ echo 'Running simpleFOAM initialisation...'
 mpirun -np 10 simpleFoam -parallel > log.simpleFoam
 
 
-cp system/controlDictKPF system/controlDict
+cp system/controlDictKPF1 system/controlDict
 cp system/fvSchemesKPF system/fvSchemes
 
-echo 'Running particle tracking...'
+echo 'Running particle tracking initialisation check...'
 
 mpirun -np 10 kinematicParcelFoam -parallel > log.KPF
 

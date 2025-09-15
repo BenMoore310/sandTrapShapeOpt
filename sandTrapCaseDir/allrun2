@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo 'Running full particle tracking...'
+cp system/controlDictKPF2 system/controlDict
+
+# Start solver
+mpirun -np 10 kinematicParcelFoam -parallel > log.KPF &
+PID=$!
+echo "Started solver PID=$PID"
+
+threshold=5000
+exitCode=0
+
+# Monitor log until solver exits
+while kill -0 "$PID" 2>/dev/null; do
+    if read -t 1 -r line <&3; then
+        if [[ "$line" == Courant* ]]; then
+            maxVal=$(awk '{print $6}' <<< "$line")
+            maxVal=${maxVal//max:/}
+            if (( $(echo "$maxVal > $threshold" | bc -l) )); then
+                echo "Courant number exceeded threshold: $maxVal"
+                kill "$PID" 2>/dev/null || true
+                exitCode=42
+                break
+            fi
+        fi
+    fi
+done 3< <(tail -n0 -f log.KPF)
+
+# Wait for solver to finish, capture exit if it wasn't killed
+wait "$PID" || true
+
+# Report outcome
+if [[ $exitCode -eq 0 ]]; then
+    echo "Solver finished successfully"
+else
+    echo "Solver stopped due to Courant number"
+fi
+
+exit $exitCode

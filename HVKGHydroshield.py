@@ -51,30 +51,30 @@ import argparse
 # for each simulation based on n pairs of x,y coordinates, the one function value returned
 # gives the result for n! feasible designs. 
 
-def swap(arr, i, j):
-    arr[i], arr[j] = arr[j], arr[i]
+# def swap(arr, i, j):
+#     arr[i], arr[j] = arr[j], arr[i]
 
-# Function to find the possible permutations. 
-# Initial value of idx is 0.
-def permutations(res, arr, idx):
+# # Function to find the possible permutations. 
+# # Initial value of idx is 0.
+# def permutations(res, arr, idx):
   
-    # Base case: if idx reaches the size of the array,
-    # add the permutation to the result
-    if idx == len(arr):
-        res.append(arr[:])
-        return
+#     # Base case: if idx reaches the size of the array,
+#     # add the permutation to the result
+#     if idx == len(arr):
+#         res.append(arr[:])
+#         return
 
-    # Permutations made by swapping each element
-    for i in range(idx, len(arr)):
-        swap(arr, idx, i)
-        permutations(res, arr, idx + 1)
-        swap(arr, idx, i)  # Backtracking
+#     # Permutations made by swapping each element
+#     for i in range(idx, len(arr)):
+#         swap(arr, idx, i)
+#         permutations(res, arr, idx + 1)
+#         swap(arr, idx, i)  # Backtracking
 
-# Function to get the permutations
-def permute(arr):
-    res = []
-    permutations(res, arr, 0)
-    return res
+# # Function to get the permutations
+# def permute(arr):
+#     res = []
+#     permutations(res, arr, 0)
+#     return res
 
 
 tkwargs = {
@@ -99,7 +99,7 @@ class HVKG:
         self.NUM_FANTASIES = 2 if os.environ.get("SMOKE_TEST") else 8
         self.NUM_HVKG_RESTARTS = 1
         self.MC_SAMPLES = 128 if not os.environ.get("SMOKE_TEST") else 16
-        self.COST_BUDGET = 100 if not os.environ.get("SMOKE_TEST") else 54
+        self.COST_BUDGET = 200 if not os.environ.get("SMOKE_TEST") else 54
 
     # def getPyMooProblem(self):
 
@@ -265,7 +265,7 @@ class HVKG:
                 bounds=standard_bounds,
                 q=self.BATCH_SIZE,
                 sequential=False,
-                options={"batch_limit": 5},
+                options={"batch_limit": 50},
             )
             objective_vals.append(vals.view(-1))
             objective_candidates.append(candidates)
@@ -377,7 +377,7 @@ class HVKG:
         print("Torch version", torch.__version__)
 
         # TODO these costs will need to be changed when I set this up for HydroShield
-        objective_costs = {0: 1.0, 1: 1.0}
+        objective_costs = {0: 0.0, 1: 0.0}
         objective_indices = list(objective_costs.keys())
         objective_costs = {int(k): v for k, v in objective_costs.items()}
         objective_costs_t = torch.tensor(
@@ -496,29 +496,29 @@ class HVKG:
 
 
                 for i in eval_objective_indices_hvkg:
-                    # print(train_x_hvkg_list[i], train_x_hvkg_list[i].shape)
-                    # print(new_x_hvkg, new_x_hvkg.shape)
-                    new_x_hvkg_alt = np.reshape(new_x_hvkg, (int(len(new_x_hvkg[-1])/2),2))
-                    res = np.array(permute(list(new_x_hvkg_alt[:,0])))
+                    # # print(train_x_hvkg_list[i], train_x_hvkg_list[i].shape)
+                    # # print(new_x_hvkg, new_x_hvkg.shape)
+                    # new_x_hvkg_alt = np.reshape(new_x_hvkg, (int(len(new_x_hvkg[-1])/2),2))
+                    # res = np.array(permute(list(new_x_hvkg_alt[:,0])))
                     
-                    for j in range(1, len(res)):
-                        linkedArray = np.reshape(np.vstack((res[j], new_x_hvkg_alt[:,1])).T, ((int(len(new_x_hvkg[-1]))),))
+                    # for j in range(1, len(res)):
+                    #     linkedArray = np.reshape(np.vstack((res[j], new_x_hvkg_alt[:,1])).T, ((int(len(new_x_hvkg[-1]))),))
 
-                        new_x_hvkg = np.vstack((new_x_hvkg, linkedArray))
+                    #     new_x_hvkg = np.vstack((new_x_hvkg, linkedArray))
                     
-                    new_x_hvkg = torch.from_numpy(new_x_hvkg)
+                    # new_x_hvkg = torch.from_numpy(new_x_hvkg)
 
-                    new_obj_hvkg_full = torch.from_numpy(np.full((len(res),), fill_value=new_obj_hvkg[0]))
+                    # new_obj_hvkg_full = torch.from_numpy(np.full((len(res),), fill_value=new_obj_hvkg[0]))
 
-                    # print('new values:', new_x_hvkg, new_x_hvkg.shape)
-                    # print(new_obj_hvkg_full, new_obj_hvkg_full.shape)
-                    # print(i)
-                    # print(eval_objective_indices_hvkg)
+                    # # print('new values:', new_x_hvkg, new_x_hvkg.shape)
+                    # # print(new_obj_hvkg_full, new_obj_hvkg_full.shape)
+                    # # print(i)
+                    # # print(eval_objective_indices_hvkg)
 
                     train_x_hvkg_list[i] = torch.cat([train_x_hvkg_list[i], new_x_hvkg], dim=0)
                     # print(train_obj_hvkg_list[i], new_obj_hvkg)
                     train_obj_hvkg_list[i] = torch.cat(
-                        [train_obj_hvkg_list[i], new_obj_hvkg_full.unsqueeze(1)], dim=0
+                        [train_obj_hvkg_list[i], new_obj_hvkg], dim=0
                     )
 
                 self.refVector = 0.5 * torch.stack(
