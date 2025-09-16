@@ -295,8 +295,8 @@ class HVKG:
     def get_model_identified_hv_maximizing_set(
         self,
         model,
-        population_size=10,
-        max_gen=10,
+        population_size=75,
+        max_gen=75,
     ):
         """Optimize the posterior mean using NSGA-II."""
         # tkwargs = {
@@ -518,7 +518,7 @@ class HVKG:
                     train_x_hvkg_list[i] = torch.cat([train_x_hvkg_list[i], new_x_hvkg], dim=0)
                     # print(train_obj_hvkg_list[i], new_obj_hvkg)
                     train_obj_hvkg_list[i] = torch.cat(
-                        [train_obj_hvkg_list[i], new_obj_hvkg], dim=0
+                        [train_obj_hvkg_list[i], new_obj_hvkg.unsqueeze(dim=0)], dim=0
                     )
 
                 self.refVector = 0.5 * torch.stack(

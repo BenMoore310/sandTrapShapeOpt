@@ -8,10 +8,10 @@
 Build  : _e651d635-20240208 OPENFOAM=2312 patch=240220 version=2312
 Arch   : "LSB;label=32;scalar=64"
 Exec   : surfaceFeatureEdges fullGeo.stl fullGeo.fms -angle 10
-Date   : Sep 15 2025
-Time   : 12:56:20
+Date   : Sep 16 2025
+Time   : 10:00:23
 Host   : work
-PID    : 394327
+PID    : 973271
 I/O    : uncollated
 Case   : /home/bm424/Projects/sandTrapShapeOpt/sandTrapCaseDir
 nProcs : 1
