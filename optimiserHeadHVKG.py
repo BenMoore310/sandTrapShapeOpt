@@ -181,80 +181,80 @@ def main(numBasis, numObj, initialSamples, seed):
 
     # uncomment from here for the initial solutions:
 
-    # for i in range(numObj):
-    #     sampler = qmc.LatinHypercube(d=len(bounds), seed=seed+i)
+    for i in range(numObj):
+        sampler = qmc.LatinHypercube(d=len(bounds), seed=seed+i)
 
-    #     # remember this is initial samples per objective, not in total
-    #     # init per obj should be 2*D + 1
+        # remember this is initial samples per objective, not in total
+        # init per obj should be 2*D + 1
 
-    #     samples = sampler.random(n=initialSamples)
+        samples = sampler.random(n=initialSamples)
 
-    #     # Scale samples to bounds
-    #     featureList[i] = qmc.scale(samples, lowBounds, highBounds)
+        # Scale samples to bounds
+        featureList[i] = qmc.scale(samples, lowBounds, highBounds)
 
-    # print("initialPopulation", featureList)
-
-
-    # for objIdx in range(numObj):
-    #     initialPopulation = featureList[objIdx]
-    #     for sample in initialPopulation:
-
-    #         i = 0
+    print("initialPopulation", featureList)
 
 
-    #         print("sample", sample)
-    #         print(sample.shape)
-    #         # print(np.reshape(sample, (numBasis,2)))
+    for objIdx in range(numObj):
+        initialPopulation = featureList[objIdx]
+        for sample in initialPopulation:
 
-    #         # call STC and generate spline from current sample
+            i = 0
 
-    #         numberEfficiency = simulateDesign(objIdx, sample, numBasis)
 
-    #         # targetList[objIdx] = np.append(targetList[objIdx], numberEfficiency)
+            print("sample", sample)
+            print(sample.shape)
+            # print(np.reshape(sample, (numBasis,2)))
 
-    #         targetList[objIdx] = np.append(targetList[objIdx], numberEfficiency)
+            # call STC and generate spline from current sample
 
-    #         print('Target list: ', targetList)
+            numberEfficiency = simulateDesign(objIdx, sample, numBasis)
 
-    #         # sample_alt = np.reshape(sample, (int(len(sample)/2), 2))
-    #         # res = np.array(permute(list(sample_alt[:,0])))
-    #         # print(len(res))
-    #         # print(res.shape)
+            # targetList[objIdx] = np.append(targetList[objIdx], numberEfficiency)
 
-    #         # sample_final = []
+            targetList[objIdx] = np.append(targetList[objIdx], numberEfficiency)
 
-    #         # for j in range(0, len(res)):
-    #         #     linkedArray = np.reshape(np.vstack((res[j], sample_alt[:,1])).T, (-1,))
-    #         #     sample_final.append(linkedArray)
+            print('Target list: ', targetList)
 
-    #         # sample_final = np.array(sample_final)
+            # sample_alt = np.reshape(sample, (int(len(sample)/2), 2))
+            # res = np.array(permute(list(sample_alt[:,0])))
+            # print(len(res))
+            # print(res.shape)
+
+            # sample_final = []
+
+            # for j in range(0, len(res)):
+            #     linkedArray = np.reshape(np.vstack((res[j], sample_alt[:,1])).T, (-1,))
+            #     sample_final.append(linkedArray)
+
+            # sample_final = np.array(sample_final)
             
-    #         # targets_alt = np.full((len(res),), fill_value=numberEfficiency)
+            # targets_alt = np.full((len(res),), fill_value=numberEfficiency)
 
-    #         # featureListFull[objIdx] = np.vstack((featureListFull[objIdx], sample_final))
-    #         # print(featureListFull[objIdx])
-    #         # targetListFull[objIdx] = np.append(targetListFull[objIdx], targets_alt)
-    #         # print(targetListFull[objIdx])
+            # featureListFull[objIdx] = np.vstack((featureListFull[objIdx], sample_final))
+            # print(featureListFull[objIdx])
+            # targetListFull[objIdx] = np.append(targetListFull[objIdx], targets_alt)
+            # print(targetListFull[objIdx])
 
-    #         i += 1
+            i += 1
 
-    # # # print(np.array(featureListFull).shape)
-    # # # featureListFull = np.array(featureListFull)
-    # # for objIdx in range(numObj):
-    # #     print(objIdx)
-    # #     featureListFull[objIdx] = np.delete(featureListFull[objIdx], 0,0)
+    # # print(np.array(featureListFull).shape)
+    # # featureListFull = np.array(featureListFull)
+    # for objIdx in range(numObj):
+    #     print(objIdx)
+    #     featureListFull[objIdx] = np.delete(featureListFull[objIdx], 0,0)
 
-    # # print(featureListFull, np.array(featureListFull).shape)
+    # print(featureListFull, np.array(featureListFull).shape)
 
-    # # print(targetList)
-    # # # print(featureList)
-    # # # print(featureListFull)
-    # # # print(np.array(featureListFull[0]).shape)
-    # # # print(targetListFull)
+    # print(targetList)
+    # # print(featureList)
+    # # print(featureListFull)
+    # # print(np.array(featureListFull[0]).shape)
+    # # print(targetListFull)
 
-    # np.savetxt('targetList.txt', targetList)
-    # arr = np.vstack(featureList)   # shape (numObj, length_of_each_array)
-    # np.savetxt("features.txt", arr)    
+    np.savetxt('targetList.txt', targetList)
+    arr = np.vstack(featureList)   # shape (numObj, length_of_each_array)
+    np.savetxt("features.txt", arr)    
 
     featureList = np.reshape(np.loadtxt('features.txt'), (numObj,(initialSamples),numBasis*2))
     targetList = np.loadtxt('targetList.txt')
