@@ -38,9 +38,9 @@ def simulateDesign(objective, sample, numBasis):
     #     shutil.copytree(cwdPath + "/runDirectory", tmpdirname + "/runDirectory")
     #     cwdPath = tmpdirname
 
-    tmpdir = tempfile.mkdtemp(dir='/Users/benmoore/projects/sandTrapShapeOpt')
+    tmpdir = tempfile.mkdtemp(dir='/home/bm424/Projects/sandTrapShapeOpt')
     shutil.copytree(
-        "/Users/benmoore/projects/sandTrapShapeOpt/sandTrapCaseDir",
+        "/home/bm424/Projects/sandTrapShapeOpt/sandTrapCaseDir",
         os.path.join(tmpdir, "sandTrapCaseDir")
     )
     cwdPath = tmpdir
