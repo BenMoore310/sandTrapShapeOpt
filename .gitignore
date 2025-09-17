@@ -4,3 +4,4 @@ sandTrapCaseDir/constant/polyMesh
 *.png
 sandTrapCaseDir/processor*
 log.*
+*.gif
