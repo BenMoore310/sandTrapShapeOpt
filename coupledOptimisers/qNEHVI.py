@@ -185,6 +185,14 @@ class qNEHVI:
             hvs_qnehvi.append(volume)
 
 
+            np.savetxt(
+                f"qNEHVIResults/featuresqNEHVI.txt",
+                torch.Tensor.numpy(train_x_qnehvi),
+            )
+            np.savetxt(
+                f"qNEHVIResults/targetsqNEHVI.txt",
+                torch.Tensor.numpy(targets),
+            )
 
             # # update progress
             # for hvs_list, train_obj in zip(
